@@ -29,7 +29,20 @@ List of all released versions may be found [here](https://github.com/netcracker/
 
 ## Usage
 
-At first, you have to create `dbaasbase.DbaasPool` object with constructor `dbaasbase.NewDbaaSPool(options ...PoolOptions) *DbaaSPool`.
+At first, it's necessary to register security implemention - dummy or your own, the followning example shows registration of required services:
+```go
+import (
+	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
+	"github.com/netcracker/qubership-core-lib-go/v3/security"
+)
+
+func init() {
+	serviceloader.Register(1, &security.DummyToken{})
+	serviceloader.Register(1, &security.TenantContextObject{})
+}
+```
+
+Then you have to create `dbaasbase.DbaasPool` object with constructor `dbaasbase.NewDbaaSPool(options ...PoolOptions) *DbaaSPool`.
 Constructor has optional parameter `PoolOptions`.
 
 PoolOptions are options for configuring dbaas pool and base dbaas client, which will be used with dbaasPool. PoolOptions

@@ -3,6 +3,8 @@ package dbaasbase
 import (
 	"context"
 	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
+	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
+	"github.com/netcracker/qubership-core-lib-go/v3/security"
 	"github.com/netcracker/qubership-core-lib-go/v3/context-propagation/ctxmanager"
 	"github.com/netcracker/qubership-core-lib-go/v3/context-propagation/baseproviders/tenant"
 	. "github.com/netcracker/qubership-core-lib-go/v3/const"
@@ -30,6 +32,8 @@ func beforeAll() {
 	tempTokenFile.Write([]byte("k8s-test-token"))
 	tempTokenFile.Close()
 	os.Setenv("kubertokenpath", tempTokenFile.Name())
+
+	setUp()
 }
 
 func afterAll() {
@@ -45,6 +49,9 @@ func TestMain(m *testing.M) {
 }
 
 func setUp() {
+	serviceloader.Register(2, &security.DummyToken{})
+	serviceloader.Register(3, &security.TenantContextObject{})
+
 	os.Setenv(MicroserviceNameProperty, microserviceName)
 	os.Setenv(NamespaceProperty, namespace)
 	configloader.Init(configloader.EnvPropertySource())
@@ -56,7 +63,6 @@ func tearDown() {
 }
 
 func TestCreateServiceClassifierV3(t *testing.T) {
-	setUp()
 	defer tearDown()
 	expected := map[string]interface{}{
 		"microserviceName": "test_service",
@@ -69,6 +75,7 @@ func TestCreateServiceClassifierV3(t *testing.T) {
 
 func TestCreateTenantClassifierV3(t *testing.T) {
 	ctx := createTenantContext()
+	logger.Info("context: %v", ctx)
 	expected := map[string]interface{}{
 		"microserviceName": "test_service",
 		"tenantId":         tenantId,

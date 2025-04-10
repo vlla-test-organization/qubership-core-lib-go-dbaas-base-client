@@ -10,16 +10,16 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/netcracker/qubership-core-lib-go/v3/utils"
-	"github.com/netcracker/qubership-core-lib-go/v3/const"
-	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/context-propagation/ctxhelper"
-	"github.com/netcracker/qubership-core-lib-go/v3/logging"
 	intermodel "github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/internal/model"
 	"github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/model"
 	"github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/model/rest"
-	"github.com/netcracker/qubership-core-lib-go/v3/context-propagation/baseproviders/tenant"
+	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
+	"github.com/netcracker/qubership-core-lib-go/v3/const"
+	"github.com/netcracker/qubership-core-lib-go/v3/context-propagation/ctxhelper"
+	"github.com/netcracker/qubership-core-lib-go/v3/logging"
+	"github.com/netcracker/qubership-core-lib-go/v3/security"
+	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
+	"github.com/netcracker/qubership-core-lib-go/v3/utils"
 )
 
 var logger logging.Logger
@@ -33,8 +33,6 @@ const (
 
 func init() {
 	logger = logging.GetLogger("dbaasbase")
-	serviceloader.Register(2, &serviceloader.Token{})
-	serviceloader.Register(3, &tenant.TenantContextObject{})
 }
 
 type DbaaSClient interface {
@@ -173,7 +171,7 @@ func (d *dbaasClientImpl) enrichClassifier(classifier map[string]interface{}) ma
 }
 
 func (d *dbaasClientImpl) sendRequestToDbaaSWithRetry(ctx context.Context, dbaasUrl string, requestBody interface{}, httpMethod string, retryPolicy *intermodel.RetryPolicy) ([]byte, error) {
-	tokenProvider := serviceloader.MustLoad[serviceloader.TokenProvider]()
+	tokenProvider := serviceloader.MustLoad[security.TokenProvider]()
 	token, err := tokenProvider.GetToken(ctx)
 	if err != nil {
 		logger.ErrorC(ctx, "Some problems during getting m2m token: %v", err.Error())

@@ -10,6 +10,8 @@ import (
 
 	constants "github.com/netcracker/qubership-core-lib-go/v3/const"
 	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
+	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
+	"github.com/netcracker/qubership-core-lib-go/v3/security"
 	"github.com/netcracker/qubership-core-lib-go/v3/context-propagation/baseproviders/tenant"
 	"github.com/netcracker/qubership-core-lib-go/v3/context-propagation/ctxmanager"
 	"github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/model"
@@ -40,6 +42,9 @@ type DbaasClientTestSuite struct {
 }
 
 func (suite *DbaasClientTestSuite) SetupSuite() {
+	serviceloader.Register(2, &security.DummyToken{})
+	serviceloader.Register(3, &security.TenantContextObject{})
+
 	StartMockServer()
 	os.Setenv(dbaasAgentUrlEnvName, GetMockServerUrl())
 	os.Setenv(namespaceEnvName, "test_namespace")
