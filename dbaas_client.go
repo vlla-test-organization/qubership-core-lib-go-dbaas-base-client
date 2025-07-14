@@ -41,13 +41,13 @@ type DbaaSClient interface {
 }
 
 type dbaasClientImpl struct {
-	options               model.СlientOptions
-	dbaasAgentUrl         string
-	namespace             string
-	client                *http.Client
+	options       model.ClientOptions
+	dbaasAgentUrl string
+	namespace     string
+	client        *http.Client
 }
 
-func NewDbaasClient(options ...model.СlientOptions) *dbaasClientImpl {
+func NewDbaasClient(options ...model.ClientOptions) *dbaasClientImpl {
 	defaultDbaasAgentUrl := constants.SelectUrl("http://dbaas-agent:8080", "https://dbaas-agent:8443")
 	dbsAgentUrl := configloader.GetOrDefaultString("dbaas.agent", defaultDbaasAgentUrl)
 	namespace := configloader.GetKoanf().MustString("microservice.namespace")
@@ -60,7 +60,7 @@ func NewDbaasClient(options ...model.СlientOptions) *dbaasClientImpl {
 	if options != nil {
 		dbsClntImpl.options = options[0]
 	} else {
-		dbsClntImpl.options = model.СlientOptions{}
+		dbsClntImpl.options = model.ClientOptions{}
 	}
 	return dbsClntImpl
 }
@@ -214,7 +214,9 @@ func (d *dbaasClientImpl) retryRequestToDbaaS(ctx context.Context, dbaasUrl stri
 			return nil, fmt.Errorf("got error during request creation: %w ", err)
 		}
 		req.Header.Set("Content-Type", "application/json")
-		if token != "" { req.Header.Set("Authorization", "Bearer "+token) }
+		if token != "" {
+			req.Header.Set("Authorization", "Bearer "+token)
+		}
 		err = ctxhelper.AddSerializableContextData(ctx, req.Header.Set)
 		if err != nil {
 			logger.ErrorC(ctx, "Error during context serializing: %v", err.Error())

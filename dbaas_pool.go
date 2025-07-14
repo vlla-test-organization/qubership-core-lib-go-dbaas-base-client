@@ -15,11 +15,11 @@ type DbaaSPool struct {
 
 func NewDbaaSPool(options ...model.PoolOptions) *DbaaSPool {
 	poolCache := &cache.DbaaSCache{LogicalDbCache: make(map[cache.Key]interface{})}
-	var clientOpts model.СlientOptions
+	var clientOpts model.ClientOptions
 	if options != nil {
-		clientOpts = model.СlientOptions{LogicalDbProviders: options[0].LogicalDbProviders}
+		clientOpts = model.ClientOptions{LogicalDbProviders: options[0].LogicalDbProviders}
 	} else {
-		clientOpts = model.СlientOptions{}
+		clientOpts = model.ClientOptions{}
 	}
 	client := NewDbaasClient(clientOpts)
 	return &DbaaSPool{poolCache: poolCache, Client: client}

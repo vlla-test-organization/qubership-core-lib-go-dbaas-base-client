@@ -8,15 +8,15 @@ import (
 	"os"
 	"testing"
 
-	constants "github.com/netcracker/qubership-core-lib-go/v3/const"
-	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/security"
-	"github.com/netcracker/qubership-core-lib-go/v3/context-propagation/baseproviders/tenant"
-	"github.com/netcracker/qubership-core-lib-go/v3/context-propagation/ctxmanager"
 	"github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/model"
 	"github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/model/rest"
 	. "github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/testutils"
+	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
+	constants "github.com/netcracker/qubership-core-lib-go/v3/const"
+	"github.com/netcracker/qubership-core-lib-go/v3/context-propagation/baseproviders/tenant"
+	"github.com/netcracker/qubership-core-lib-go/v3/context-propagation/ctxmanager"
+	"github.com/netcracker/qubership-core-lib-go/v3/security"
+	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
@@ -71,7 +71,7 @@ func (suite *DbaasClientTestSuite) TestNewDbaasClient_WithoutOptions() {
 }
 
 func (suite *DbaasClientTestSuite) TestNewDbaasClient_WithOptions() {
-	options := model.СlientOptions{LogicalDbProviders: []model.LogicalDbProvider{testCorrectLogicalDbProvider{}}}
+	options := model.ClientOptions{LogicalDbProviders: []model.LogicalDbProvider{testCorrectLogicalDbProvider{}}}
 	dbaasClient := NewDbaasClient(options)
 	assert.NotNil(suite.T(), dbaasClient)
 	assert.NotNil(suite.T(), dbaasClient.options.LogicalDbProviders)
@@ -115,7 +115,7 @@ func (suite *DbaasClientTestSuite) TestGetOrCreateDatabase_UseLogicalDbProvider(
 	params := rest.BaseDbParams{}
 
 	correctLogicalDbProvider := testCorrectLogicalDbProvider{testServerUrl: GetMockServerUrl()}
-	options := model.СlientOptions{LogicalDbProviders: []model.LogicalDbProvider{correctLogicalDbProvider}}
+	options := model.ClientOptions{LogicalDbProviders: []model.LogicalDbProvider{correctLogicalDbProvider}}
 	dbClient := NewDbaasClient(options)
 	actualLogicalDb, err := dbClient.GetOrCreateDb(context.Background(), dbType, suite.classifier, params)
 	assert.Nil(suite.T(), err)
@@ -133,7 +133,7 @@ func (suite *DbaasClientTestSuite) TestGetOrCreateDatabase_UseLogicalDbProviderF
 	})
 
 	correctLogicalDbProvider := testCorrectLogicalDbProvider{testServerUrl: GetMockServerUrl()}
-	options := model.СlientOptions{
+	options := model.ClientOptions{
 		LogicalDbProviders: []model.LogicalDbProvider{testNilLogicalDbProvider{}, correctLogicalDbProvider},
 	}
 	dbClient := NewDbaasClient(options)
@@ -152,7 +152,7 @@ func (suite *DbaasClientTestSuite) TestGetOrCreateDatabase_AllLogicalDbProviderR
 		writer.Write(jsonString)
 	})
 
-	options := model.СlientOptions{
+	options := model.ClientOptions{
 		LogicalDbProviders: []model.LogicalDbProvider{testNilLogicalDbProvider{}, testNilLogicalDbProvider{}},
 	}
 	dbClient := NewDbaasClient(options)
@@ -172,7 +172,7 @@ func (suite *DbaasClientTestSuite) TestGetOrCreateDatabase_LogicalDbProviderRetu
 	})
 
 	configloader.InitWithSourcesArray([]*configloader.PropertySource{configloader.EnvPropertySource()})
-	options := model.СlientOptions{
+	options := model.ClientOptions{
 		LogicalDbProviders: []model.LogicalDbProvider{testErrorLogicalDbProvider{}},
 	}
 	dbClient := NewDbaasClient(options)
@@ -190,7 +190,7 @@ func (suite *DbaasClientTestSuite) TestGetDatabase_GetConnectionFromProvider() {
 	})
 
 	correctLogicalDbProvider := testCorrectLogicalDbProvider{testServerUrl: GetMockServerUrl()}
-	options := model.СlientOptions{LogicalDbProviders: []model.LogicalDbProvider{correctLogicalDbProvider}}
+	options := model.ClientOptions{LogicalDbProviders: []model.LogicalDbProvider{correctLogicalDbProvider}}
 	dbClient := NewDbaasClient(options)
 	connection, err := dbClient.GetConnection(context.Background(), dbType, suite.classifier, params)
 	assert.Nil(suite.T(), err)
@@ -208,7 +208,7 @@ func (suite *DbaasClientTestSuite) TestGetDatabase_UseLogicalDbProviderFromListV
 	})
 
 	correctLogicalDbProvider := testCorrectLogicalDbProvider{testServerUrl: GetMockServerUrl()}
-	options := model.СlientOptions{
+	options := model.ClientOptions{
 		LogicalDbProviders: []model.LogicalDbProvider{testNilLogicalDbProvider{}, correctLogicalDbProvider},
 	}
 	dbClient := NewDbaasClient(options)
@@ -232,7 +232,7 @@ func (suite *DbaasClientTestSuite) TestGetConnection_AllLogicalDbProviderReturnN
 		isRequestSent = true
 	})
 
-	options := model.СlientOptions{
+	options := model.ClientOptions{
 		LogicalDbProviders: []model.LogicalDbProvider{testNilLogicalDbProvider{}, testNilLogicalDbProvider{}},
 	}
 	dbClient := NewDbaasClient(options)
@@ -257,7 +257,7 @@ func (suite *DbaasClientTestSuite) TestGetConnection_LogicalDbProviderReturnErro
 	})
 
 	configloader.InitWithSourcesArray([]*configloader.PropertySource{configloader.EnvPropertySource()})
-	options := model.СlientOptions{
+	options := model.ClientOptions{
 		LogicalDbProviders: []model.LogicalDbProvider{testErrorLogicalDbProvider{}},
 	}
 	dbClient := NewDbaasClient(options)
