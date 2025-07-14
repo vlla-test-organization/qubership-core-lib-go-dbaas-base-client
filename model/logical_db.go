@@ -27,8 +27,8 @@ type LogicalDb struct {
 	Settings map[string]interface{} `json:"settings"`
 }
 
-// СlientOptions are options for dbaas Client creation
-type СlientOptions struct {
+// ClientOptions are options for dbaas Client creation
+type ClientOptions struct {
 	// LogicalDbProviders stores list of available logical db providers
 	LogicalDbProviders []LogicalDbProvider
 }
