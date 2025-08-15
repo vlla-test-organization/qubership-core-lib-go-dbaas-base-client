@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/model"
 	"github.com/stretchr/testify/assert"
+	"github.com/vlla-test-organization/qubership-core-lib-go-dbaas-base-client/v3/model"
 )
 
 const dbType = "type"

@@ -3,9 +3,9 @@ package dbaasbase
 import (
 	"context"
 
-	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
-	. "github.com/netcracker/qubership-core-lib-go/v3/const"
-	"github.com/netcracker/qubership-core-lib-go/v3/context-propagation/baseproviders/tenant"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/configloader"
+	. "github.com/vlla-test-organization/qubership-core-lib-go/v3/const"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/context-propagation/baseproviders/tenant"
 )
 
 func BaseServiceClassifier(ctx context.Context) map[string]interface{} {

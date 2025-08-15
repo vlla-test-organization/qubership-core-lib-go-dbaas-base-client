@@ -10,16 +10,16 @@ import (
 	"net/http"
 	"time"
 
-	intermodel "github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/internal/model"
-	"github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/model"
-	"github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/model/rest"
-	"github.com/netcracker/qubership-core-lib-go/v3/configloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/const"
-	"github.com/netcracker/qubership-core-lib-go/v3/context-propagation/ctxhelper"
-	"github.com/netcracker/qubership-core-lib-go/v3/logging"
-	"github.com/netcracker/qubership-core-lib-go/v3/security"
-	"github.com/netcracker/qubership-core-lib-go/v3/serviceloader"
-	"github.com/netcracker/qubership-core-lib-go/v3/utils"
+	intermodel "github.com/vlla-test-organization/qubership-core-lib-go-dbaas-base-client/v3/internal/model"
+	"github.com/vlla-test-organization/qubership-core-lib-go-dbaas-base-client/v3/model"
+	"github.com/vlla-test-organization/qubership-core-lib-go-dbaas-base-client/v3/model/rest"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/configloader"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/const"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/context-propagation/ctxhelper"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/logging"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/security"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/serviceloader"
+	"github.com/vlla-test-organization/qubership-core-lib-go/v3/utils"
 )
 
 var logger logging.Logger

@@ -1,6 +1,6 @@
 package model
 
-import "github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/model/rest"
+import "github.com/vlla-test-organization/qubership-core-lib-go-dbaas-base-client/v3/model/rest"
 
 // LogicalDbProvider allows use different sources as databases providers (for example zookeeper)
 type LogicalDbProvider interface {

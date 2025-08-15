@@ -3,8 +3,9 @@
 package mock
 
 import (
-	"github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/model"
-	rest "github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/model/rest"
+	mock "github.com/stretchr/testify/mock"
+	"github.com/vlla-test-organization/qubershi
+	"github.com/vlla-test-organization/qubership-core-lib-go-dbaas-base-client/v3/model"
 	mock "github.com/stretchr/testify/mock"
 )
 

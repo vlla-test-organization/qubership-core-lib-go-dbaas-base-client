@@ -6,11 +6,11 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/cache"
-	"github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/model"
-	"github.com/netcracker/qubership-core-lib-go-dbaas-base-client/v3/model/rest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+	"github.com/vlla-test-organization/qubership-core-lib-go-dbaas-base-client/v3/cache"
+	"github.com/vlla-test-organization/qubership-core-lib-go-dbaas-base-client/v3/model"
+	"github.com/vlla-test-organization/qubership-core-lib-go-dbaas-base-client/v3/model/rest"
 )
 
 const DB_TYPE = "dbType"
