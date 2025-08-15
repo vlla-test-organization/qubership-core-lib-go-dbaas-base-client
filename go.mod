@@ -4,6 +4,10 @@ go 1.23
 
 toolchain go1.24.5
 
+retract (
+    v3.0.1
+)
+
 require (
 	github.com/vlla-test-organization/qubership-core-lib-go/v3 latest
 	github.com/stretchr/testify v1.10.0
