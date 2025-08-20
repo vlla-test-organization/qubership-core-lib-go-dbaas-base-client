@@ -8,7 +8,7 @@ retract v3.0.1
 
 require (
 	github.com/stretchr/testify v1.10.0
-	github.com/vlla-test-organization/qubership-core-lib-go/v3 v3.0.32
+	github.com/vlla-test-organization/qubership-core-lib-go/v3 v3.0.33
 )
 
 require (
