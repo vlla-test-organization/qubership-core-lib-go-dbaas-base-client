@@ -4,7 +4,6 @@ go 1.23
 
 toolchain go1.24.5
 
-retract v3.0.1
 
 require (
 	github.com/stretchr/testify v1.10.0
